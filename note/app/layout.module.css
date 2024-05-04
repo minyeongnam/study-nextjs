@@ -1,0 +1,9 @@
+.header {
+  @apply flex justify-between items-center px-4 py-4 shadow-md mb-5;
+}
+.header h1 {
+  @apply text-4xl;
+}
+.nav {
+  @apply flex gap-2 text-sm;
+}
