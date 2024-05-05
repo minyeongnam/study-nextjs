@@ -1,18 +1,21 @@
+import { getProducts } from "@/api/products";
+import MeowArticle from "@/components/MeowArticle";
 import Link from "next/link";
 
-const products = ["shirt", "pants", "skirt", "shoes"];
-export default function ProductsPage() {
+export default async function ProductsPage() {
+  const products = await getProducts();
+
   return (
     <>
-      <h1>Products!2</h1>
-
+      <h1>Products!</h1>
       <ul>
         {products.map((product) => (
-          <Link href={`/products/${product}`} key={product}>
-            {product}
+          <Link href={`/products/${product.id}`} key={product.id}>
+            {product.name}
           </Link>
         ))}
       </ul>
+      <MeowArticle />
     </>
   );
 }

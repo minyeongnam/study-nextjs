@@ -7,6 +7,7 @@
 // 스프레드 연산자를 쓸 경우 하위 페이지까지 배열로 받아온다
 // [[...slug]] 옵셔널하게 사용가능
 
+import { getProduct, getProducts } from "@/api/products";
 import { Metadata } from "next";
 import { notFound } from "next/navigation";
 
@@ -22,17 +23,18 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   };
 }
 
-export default function SlugPage({ params }: Props) {
-  if (params.slug === "nothing") {
-    notFound(); //해당 페이지와 가장 가짜운 notFound 페이지 실행
+export default async function ProductPage({ params: { slug } }: Props) {
+  const product = await getProduct(slug);
+  if (!product) {
+    notFound();
   }
-  return <h1>{params.slug} 제품 설명 페이지!</h1>;
+  return <h1>{product.name} 제품 설명 페이지!</h1>;
 }
 
 // SSG로 페이지를 미리 만들 경우 사용
-export function generateStaticParams() {
-  const products = ["pants", "skirt"];
+export async function generateStaticParams() {
+  const products = await getProducts();
   return products.map((product) => {
-    return { slug: product };
+    return { slug: product.id };
   });
 }
