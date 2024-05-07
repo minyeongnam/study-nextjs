@@ -1,10 +1,14 @@
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
+import { Open_Sans } from "next/font/google";
+import { Nanum_Gothic } from "next/font/google";
 import "./globals.css";
 import styles from "./layout.module.css";
 import Link from "next/link";
 
 const inter = Inter({ subsets: ["latin"] });
+const openSans = Open_Sans({ subsets: ["latin"] });
+const nanumGothic = Nanum_Gothic({ weight: "700", subsets: ["latin"] });
 
 //레이아웃에 정의하면 자식페이지에서도 메타데이터가 적용된다
 export const metadata: Metadata = {
@@ -22,10 +26,10 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
+    <html lang="en" className={openSans.className}>
       <body className={inter.className}>
         <header className={styles.header}>
-          <h1>
+          <h1 className={nanumGothic.className}>
             <Link href="/">Demo Note</Link>
           </h1>
           <nav className={styles.nav}>
